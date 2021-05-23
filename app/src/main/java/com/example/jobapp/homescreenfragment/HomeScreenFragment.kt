@@ -12,12 +12,16 @@ import com.example.jobapp.R
 import com.example.jobapp.adapter.RecyclerFavoriteAdapter
 import com.example.jobapp.adapter.RecyclerJobsListAdapter
 import com.example.jobapp.databinding.FragmentHomeScreenBinding
+import com.example.jobapp.model.JobModel
+import com.example.jobapp.onclickforadapter.OnClickHomeAdapter
+import com.example.jobapp.response.JobsResponse
 import com.example.jobapp.roomdatabase.AppDataBase
+import com.example.jobapp.util.Constants
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class HomeScreenFragment : Fragment() {
+class HomeScreenFragment : Fragment() , OnClickHomeAdapter {
 
     lateinit var binding            : FragmentHomeScreenBinding
     private val homeScreenViewModel : HomeScreenViewModel by viewModels()
@@ -35,10 +39,22 @@ class HomeScreenFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.homeScreenVarModel = homeScreenViewModel
 
+        // show result from api.
         homeScreenViewModel.getJobResult()
         homeScreenViewModel.jobResultLiveData.observe(viewLifecycleOwner, Observer {
-            binding.rvJobsList.adapter = RecyclerJobsListAdapter(it,requireActivity())
+            binding.rvJobsList.adapter = RecyclerJobsListAdapter(it,this)
 
         })
+    }
+
+    // onClick adapter
+    override fun onclickHomePage(
+        viewHolder: RecyclerJobsListAdapter.ViewHolder,
+        jobsResponse: JobsResponse,
+        position: Int
+    ) {
+
+        // call function for insert data to room database.
+      homeScreenViewModel.insertJobToDatabase(requireActivity(),jobsResponse)
     }
 }

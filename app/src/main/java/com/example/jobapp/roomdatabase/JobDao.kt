@@ -18,5 +18,5 @@ interface JobDao {
     suspend fun selectAllJob() : List<JobModel>
 
     @Query("DELETE FROM JobModel WHERE title = :title")
-    suspend fun deleteItems( title: String )
+    suspend fun deleteJob( title: String )
 }

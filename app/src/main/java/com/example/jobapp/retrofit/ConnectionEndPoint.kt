@@ -9,5 +9,5 @@ import retrofit2.http.Query
 interface ConnectionEndPoint {
 
     @GET(Constants.END_POINT)
-    suspend fun getJobList(@Query("description") description : String) : Response<List<JobsResponse>>
+    suspend fun getJobList(@Query(Constants.QUERY_DESCRIPTION) description : String) : Response<List<JobsResponse>>
 }

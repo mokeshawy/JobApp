@@ -7,22 +7,24 @@ import androidx.room.Room
 import com.example.jobapp.model.JobModel
 
 import com.example.jobapp.roomdatabase.AppDataBase
+import com.example.jobapp.util.Constants
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 
 class FavoriteViewModel : ViewModel(){
 
-    val jobResultLiveData = MutableLiveData<List<JobModel>>()
 
+
+    val jobSaveResultLiveData = MutableLiveData<List<JobModel>>()
     fun showDataFromDatabase(context: Context){
         CoroutineScope(Dispatchers.IO).async {
 
-            val dataBase : AppDataBase = Room.databaseBuilder(context , AppDataBase::class.java , "job").build()
+            val dataBase : AppDataBase = Room.databaseBuilder(context , AppDataBase::class.java , Constants.TABLE_NAME).build()
 
             CoroutineScope(Dispatchers.Main).async {
 
-                jobResultLiveData.value = dataBase.jobDao().selectAllJob()
+                jobSaveResultLiveData.value = dataBase.jobDao().selectAllJob()
 
             }
         }
