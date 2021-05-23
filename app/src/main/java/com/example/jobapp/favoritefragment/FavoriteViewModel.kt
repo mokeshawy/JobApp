@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.room.Room
+import com.example.jobapp.model.FavoriteJobModel
 import com.example.jobapp.model.JobModel
 
 import com.example.jobapp.roomdatabase.AppDataBase
@@ -15,16 +16,12 @@ import kotlinx.coroutines.async
 class FavoriteViewModel : ViewModel(){
 
 
-
-    val jobSaveResultLiveData = MutableLiveData<List<JobModel>>()
+    val jobSaveResultLiveData = MutableLiveData<List<FavoriteJobModel>>()
     fun showDataFromDatabase(context: Context){
         CoroutineScope(Dispatchers.IO).async {
-
             val dataBase : AppDataBase = Room.databaseBuilder(context , AppDataBase::class.java , Constants.DATA_BASE_NAME).build()
-
             CoroutineScope(Dispatchers.Main).async {
-
-                jobSaveResultLiveData.value = dataBase.jobDao().selectAllJob()
+                jobSaveResultLiveData.value = dataBase.jobDao().selectAllFromFavorite()
 
             }
         }

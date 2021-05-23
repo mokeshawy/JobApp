@@ -44,7 +44,7 @@ class HomeScreenFragment : Fragment() , OnClickHomeAdapter {
         binding.homeScreenVarModel = homeScreenViewModel
 
 
-        // show result from api.
+        // show result from api in recycler adapter.
         homeScreenViewModel.getJobResult()
         homeScreenViewModel.jobResultLiveData.observe(viewLifecycleOwner, Observer {
             binding.rvJobsList.adapter = RecyclerJobsListAdapter(it,this)

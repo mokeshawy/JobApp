@@ -11,6 +11,7 @@ import androidx.room.Room
 import com.example.jobapp.R
 import com.example.jobapp.adapter.RecyclerFavoriteAdapter
 import com.example.jobapp.databinding.FragmentFavoriteBinding
+import com.example.jobapp.model.FavoriteJobModel
 import com.example.jobapp.model.JobModel
 import com.example.jobapp.onclickforadapter.OnClickFavoriteAdapter
 import com.example.jobapp.roomdatabase.AppDataBase
@@ -36,6 +37,7 @@ class FavoriteFragment : Fragment() , OnClickFavoriteAdapter{
         binding.lifecycleOwner = this
         binding.favoriteVarViewModel = favoriteViewModel
 
+        // show data from favorite from database.
         favoriteViewModel.showDataFromDatabase(requireActivity())
         favoriteViewModel.jobSaveResultLiveData.observe(viewLifecycleOwner, Observer {
             binding.rvJobsList.adapter = RecyclerFavoriteAdapter(it,this)
@@ -44,14 +46,9 @@ class FavoriteFragment : Fragment() , OnClickFavoriteAdapter{
 
     override fun onClickFavoritePage(
         viewHolder: RecyclerFavoriteAdapter.ViewHolder,
-        jobModel: JobModel,
+        favoriteJobModel: FavoriteJobModel,
         position: Int
     ) {
-        CoroutineScope(Dispatchers.IO).launch {
-            var dataBase : AppDataBase = Room.databaseBuilder(requireActivity(), AppDataBase::class.java , Constants.DATA_BASE_NAME).build()
-            CoroutineScope(Dispatchers.Main).launch {
-                dataBase.jobDao().selectAllJob()
-            }
-        }
+
     }
 }
