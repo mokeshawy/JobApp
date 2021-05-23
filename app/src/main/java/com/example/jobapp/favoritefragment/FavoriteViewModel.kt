@@ -20,7 +20,7 @@ class FavoriteViewModel : ViewModel(){
     fun showDataFromDatabase(context: Context){
         CoroutineScope(Dispatchers.IO).async {
 
-            val dataBase : AppDataBase = Room.databaseBuilder(context , AppDataBase::class.java , Constants.TABLE_NAME).build()
+            val dataBase : AppDataBase = Room.databaseBuilder(context , AppDataBase::class.java , Constants.DATA_BASE_NAME).build()
 
             CoroutineScope(Dispatchers.Main).async {
 

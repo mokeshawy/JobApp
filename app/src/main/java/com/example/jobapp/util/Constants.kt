@@ -9,6 +9,6 @@ object Constants {
     const val API_KEY   = "api"
 
     // Room Database table name
-    const val TABLE_NAME = "job"
+    const val DATA_BASE_NAME = "job"
 
 }

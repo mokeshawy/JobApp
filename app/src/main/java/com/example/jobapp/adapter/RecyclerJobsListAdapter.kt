@@ -1,28 +1,23 @@
 package com.example.jobapp.adapter
 
-import android.content.Context
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
 import com.example.jobapp.databinding.JobsListItemBinding
-import com.example.jobapp.model.JobModel
 import com.example.jobapp.onclickforadapter.OnClickHomeAdapter
 import com.example.jobapp.response.JobsResponse
-import com.example.jobapp.roomdatabase.AppDataBase
 import com.squareup.picasso.Picasso
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
-class RecyclerJobsListAdapter ( private var mJobs: List<JobsResponse> , var onClickHomeAdapter: OnClickHomeAdapter) : RecyclerView.Adapter<RecyclerJobsListAdapter.ViewHolder>() {
+class RecyclerJobsListAdapter ( private var mJobs: List<JobsResponse> ,
+                                var onClickHomeAdapter: OnClickHomeAdapter) : RecyclerView.Adapter<RecyclerJobsListAdapter.ViewHolder>() {
 
     class ViewHolder(var binding : JobsListItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         // initialize onClickUsersAdapter from interface
-        fun initialize(viewHolder: ViewHolder, jobsResponse: JobsResponse, action : OnClickHomeAdapter){
-            action.onclickHomePage(viewHolder , jobsResponse , adapterPosition )
+        fun initialize(viewHolder: ViewHolder, mJobs: List<JobsResponse> , jobsResponse: JobsResponse, action : OnClickHomeAdapter){
+            action.onclickHomePage(viewHolder , mJobs , jobsResponse , adapterPosition )
         }
 
     }
@@ -45,7 +40,7 @@ class RecyclerJobsListAdapter ( private var mJobs: List<JobsResponse> , var onCl
         viewHolder.binding.tvJobTitle.text      = mJobs[position].title
         Picasso.get().load(mJobs[position].company_logo).into(viewHolder.binding.ivCompanyLogo)
 
-        viewHolder.initialize( viewHolder , mJobs[position] , onClickHomeAdapter)
+        viewHolder.initialize( viewHolder , mJobs , mJobs[position] , onClickHomeAdapter)
 
     }
 

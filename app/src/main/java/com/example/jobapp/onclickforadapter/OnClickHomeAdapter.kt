@@ -5,5 +5,5 @@ import com.example.jobapp.response.JobsResponse
 
 interface OnClickHomeAdapter {
 
-    fun onclickHomePage( viewHolder: RecyclerJobsListAdapter.ViewHolder , jobsResponse: JobsResponse , position : Int )
+    fun onclickHomePage( viewHolder: RecyclerJobsListAdapter.ViewHolder , mJobsResponse: List<JobsResponse> , jobsResponse: JobsResponse , position : Int )
 }

@@ -48,7 +48,7 @@ class FavoriteFragment : Fragment() , OnClickFavoriteAdapter{
         position: Int
     ) {
         CoroutineScope(Dispatchers.IO).launch {
-            var dataBase : AppDataBase = Room.databaseBuilder(requireActivity(), AppDataBase::class.java , Constants.TABLE_NAME).build()
+            var dataBase : AppDataBase = Room.databaseBuilder(requireActivity(), AppDataBase::class.java , Constants.DATA_BASE_NAME).build()
             CoroutineScope(Dispatchers.Main).launch {
                 dataBase.jobDao().selectAllJob()
             }
