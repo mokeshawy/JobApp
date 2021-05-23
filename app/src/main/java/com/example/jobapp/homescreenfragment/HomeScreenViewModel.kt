@@ -122,26 +122,23 @@ class HomeScreenViewModel : ViewModel() {
         }
     }
 
-    // fun add for data from room database favorite when no connection with internet job.
+    // fun add for data from room database to favorite when no connection with internet job.
     fun addFavoriteJobFromDatabase(context: Context , jobModel: JobModel){
 
         CoroutineScope(Dispatchers.IO).launch{
             var dataBase : AppDataBase = Room.databaseBuilder(context, AppDataBase::class.java,Constants.DATA_BASE_NAME).build()
             CoroutineScope(Dispatchers.Main).launch{
-                var title = dataBase.jobDao().selectByTitle(jobModel.title)
+                var title = dataBase.jobDao().selectFavoriteByTitle(jobModel.title)
                 if(title.size == 1){
                     // when size == 1 not save item because already save.
                 }else{
-                    dataBase.jobDao().addFavoriteJob(
-                        FavoriteJobModel(jobModel.company,
+                    dataBase.jobDao().addFavoriteJob( FavoriteJobModel(jobModel.company,
                             jobModel.company_logo,
                             jobModel.company_url,
                             jobModel.description,
                             jobModel.type,
                             jobModel.url,
-                            jobModel.title)
-                    )
-                    Toast.makeText(context,"Favorite ${jobModel.title}", Toast.LENGTH_SHORT).show()
+                            jobModel.title))
                 }
             }
         }
@@ -154,7 +151,6 @@ class HomeScreenViewModel : ViewModel() {
             var dataBase : AppDataBase = Room.databaseBuilder(context,AppDataBase::class.java, Constants.DATA_BASE_NAME).build()
             CoroutineScope(Dispatchers.Main).launch {
                 dataBase.jobDao().unFavoriteJob(title)
-                Toast.makeText(context,"Un Favorite ${title}", Toast.LENGTH_SHORT).show()
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.example.jobapp.favoritefragment
 
 import android.os.Bundle
+import android.util.SparseBooleanArray
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -50,5 +51,15 @@ class FavoriteFragment : Fragment() , OnClickFavoriteAdapter{
         position: Int
     ) {
 
+        // call check select on favorite button.
+        favoriteViewModel.checkSelect(requireActivity(),
+            favoriteJobModel.title,
+            viewHolder.binding.btnFavoriteJobs)
+
+        // make onClick itemView.
+        viewHolder.binding.btnFavoriteJobs.setOnClickListener {
+            // call function for delete job from favorite
+            favoriteViewModel.deleteFavoriteData(requireActivity(),favoriteJobModel.title)
+        }
     }
 }

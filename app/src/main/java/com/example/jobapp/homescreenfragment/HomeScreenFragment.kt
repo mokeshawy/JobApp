@@ -141,8 +141,7 @@ class HomeScreenFragment : Fragment() , OnClickHomeAdapter , OnClickSaveResult{
                 viewHolder.binding.btnFavoriteJobs.isChecked = true
                 checkBoxArray.put(position , true)
                 // call function for add job from database to favorite.
-                homeScreenViewModel.addFavoriteJobFromDatabase(requireActivity(),
-                    jobModel)
+                homeScreenViewModel.addFavoriteJobFromDatabase(requireActivity(), jobModel)
             }else{
                 viewHolder.binding.btnFavoriteJobs.isChecked = false
                 checkBoxArray.put(position , false)
