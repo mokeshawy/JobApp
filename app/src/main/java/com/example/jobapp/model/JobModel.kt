@@ -11,10 +11,23 @@ data class JobModel(
     val company         : String,
 
     @ColumnInfo(name = "company_logo")
-    val company_logo    : String,
+    val company_logo    : String? = null,
+
+    @ColumnInfo(name = "company_url")
+    val company_url     : String? = null,
+
+    @ColumnInfo(name = "description")
+    val description     : String,
+
+    @ColumnInfo(name = "type")
+    val type            : String,
+
+    @ColumnInfo(name = "url")
+    val url             : String? = null,
 
     @ColumnInfo(name = "title")
-    val title           : String
+    val title           : String,
+
 ){
     @PrimaryKey(autoGenerate = true)
     var id : Int = 0

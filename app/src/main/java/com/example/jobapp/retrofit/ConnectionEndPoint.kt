@@ -1,7 +1,7 @@
 package com.example.jobapp.retrofit
 
 import com.example.jobapp.util.Constants
-import com.example.jobsapp.response.JobsResponse
+import com.example.jobapp.response.JobsResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

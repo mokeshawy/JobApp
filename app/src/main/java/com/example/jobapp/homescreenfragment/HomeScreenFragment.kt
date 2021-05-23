@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.room.Room
 import com.example.jobapp.R
+import com.example.jobapp.adapter.RecyclerFavoriteAdapter
+import com.example.jobapp.adapter.RecyclerJobsListAdapter
 import com.example.jobapp.databinding.FragmentHomeScreenBinding
-import com.example.jobapp.model.JobModel
 import com.example.jobapp.roomdatabase.AppDataBase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -33,11 +35,10 @@ class HomeScreenFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.homeScreenVarModel = homeScreenViewModel
 
-//        CoroutineScope(Dispatchers.IO).launch {
-//            var dataBase : AppDataBase = Room.databaseBuilder(requireActivity(), AppDataBase::class.java , "job").build()
-//            CoroutineScope(Dispatchers.Main).launch {
-//                dataBase.jobDao().insertFavoriteJob(JobModel("Programing","Mohamed","Programing"))
-//            }
-//        }
+        homeScreenViewModel.getJobResult()
+        homeScreenViewModel.jobResultLiveData.observe(viewLifecycleOwner, Observer {
+            binding.rvJobsList.adapter = RecyclerJobsListAdapter(it,requireActivity())
+
+        })
     }
 }

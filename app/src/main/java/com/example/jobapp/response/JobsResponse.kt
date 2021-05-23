@@ -1,7 +1,8 @@
-package com.example.jobsapp.response
+package com.example.jobapp.response
 
 
 data class JobsResponse(
+
     val company         : String,
     val company_logo    : String,
     val company_url     : String,

@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.example.jobapp.R
+import com.example.jobapp.adapter.RecyclerFavoriteAdapter
 import com.example.jobapp.databinding.FragmentFavoriteBinding
 
 class FavoriteFragment : Fragment() {
@@ -25,5 +27,10 @@ class FavoriteFragment : Fragment() {
         // connect with view model.
         binding.lifecycleOwner = this
         binding.favoriteVarViewModel = favoriteViewModel
+
+        favoriteViewModel.showDataFromDatabase(requireActivity())
+        favoriteViewModel.jobResultLiveData.observe(viewLifecycleOwner, Observer {
+            binding.rvJobsList.adapter = RecyclerFavoriteAdapter(it,requireActivity())
+        })
     }
 }

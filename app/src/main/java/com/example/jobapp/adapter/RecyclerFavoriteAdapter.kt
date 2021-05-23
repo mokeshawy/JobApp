@@ -1,14 +1,22 @@
 package com.example.jobapp.adapter
 
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import com.example.jobapp.databinding.JobsListItemBinding
-import com.example.jobsapp.response.JobsResponse
-import com.squareup.picasso.Picasso
+import com.example.jobapp.model.JobModel
 
-class RecyclerFavoriteAdapter ( private var mJobs: List<JobsResponse> ) : RecyclerView.Adapter<RecyclerFavoriteAdapter.ViewHolder>() {
+import com.example.jobapp.response.JobsResponse
+import com.example.jobapp.roomdatabase.AppDataBase
+import com.squareup.picasso.Picasso
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
+class RecyclerFavoriteAdapter ( private var mJobs: List<JobModel> , var context: Context) : RecyclerView.Adapter<RecyclerFavoriteAdapter.ViewHolder>() {
 
     class ViewHolder(var binding : JobsListItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -37,6 +45,12 @@ class RecyclerFavoriteAdapter ( private var mJobs: List<JobsResponse> ) : Recycl
         viewHolder.binding.tvJobTitle.text      = mJobs[position].title
         Picasso.get().load(mJobs[position].company_logo).into(viewHolder.binding.ivCompanyLogo)
 
+        CoroutineScope(Dispatchers.IO).launch {
+            var dataBase : AppDataBase = Room.databaseBuilder(context, AppDataBase::class.java , "job").build()
+            CoroutineScope(Dispatchers.Main).launch {
+                dataBase.jobDao().selectAllJob()
+            }
+        }
 
 //        viewHolder.initialize( viewHolder , mUsers[position] , onClickAdapter , true)
 
