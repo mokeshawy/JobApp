@@ -10,11 +10,8 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.room.Room
 import com.example.jobapp.R
 import com.example.jobapp.databinding.ActivityMainBinding
-import com.example.jobapp.model.JobModel
-import com.example.jobapp.roomdatabase.AppDataBase
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -31,7 +28,9 @@ class MainActivity : AppCompatActivity() {
         findViewById<BottomNavigationView>(R.id.bottom_navigation).setupWithNavController(navController)
 
         // work tge action bar for fragment page.
-        val appBarConfiguration = AppBarConfiguration(setOf())
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.homeScreenFragment ,
+            R.id.searchFragment ,
+            R.id.favoriteFragment))
         setupActionBarWithNavController(navController , appBarConfiguration)
 
 
@@ -55,8 +54,5 @@ class MainActivity : AppCompatActivity() {
                 else -> binding.bottomNavigation.visibility = View.INVISIBLE
             }
         }
-
-        var dataBase : AppDataBase = Room.databaseBuilder(this , AppDataBase::class.java , "job").allowMainThreadQueries().build()
-        dataBase.jobDao().insertFavoriteJob(JobModel("Programing"))
     }
 }

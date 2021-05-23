@@ -10,6 +10,11 @@ data class JobModel(
     @ColumnInfo(name = "company")
     val company         : String,
 
+    @ColumnInfo(name = "company_logo")
+    val company_logo    : String,
+
+    @ColumnInfo(name = "title")
+    val title           : String
 ){
     @PrimaryKey(autoGenerate = true)
     var id : Int = 0
