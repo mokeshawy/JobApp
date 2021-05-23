@@ -24,13 +24,9 @@ class HomeScreenViewModel : ViewModel() {
     val jobResultLiveData = MutableLiveData<List<JobsResponse>>()
     // get data from api and show in home screen page.
     fun getJobResult(){
-
         CoroutineScope(Dispatchers.IO).async {
-
             val response = RetrofitBuilder.getJobApi().getJobList(Constants.API_KEY)
-
             CoroutineScope(Dispatchers.Main).async {
-
                 jobResultLiveData.value = response.body()
 
             }
@@ -110,6 +106,18 @@ class HomeScreenViewModel : ViewModel() {
                         toggleButton.isChecked = true
                     }
                 }
+            }
+        }
+    }
+
+    var getSaveDataLive = MutableLiveData<List<JobModel>>()
+    // function get all data save from database
+    fun getSaveDate(context: Context){
+        CoroutineScope(Dispatchers.IO).launch {
+            var dataBase : AppDataBase = Room.databaseBuilder(context,AppDataBase::class.java, Constants.DATA_BASE_NAME).build()
+            CoroutineScope(Dispatchers.Main).launch {
+
+                getSaveDataLive.value = dataBase.jobDao().selectAllJob()
             }
         }
     }
