@@ -33,7 +33,7 @@ class HomeScreenViewModel : ViewModel() {
         }
     }
 
-    // insert data to room database
+    // insert data to room database from result api.
     fun insertJobToDatabase( context: Context ,
                              jobsResponse : JobsResponse){
 
@@ -42,7 +42,7 @@ class HomeScreenViewModel : ViewModel() {
             CoroutineScope(Dispatchers.Main).launch {
                 var title = dataBase.jobDao().selectByTitle(jobsResponse.title)
                 if( title.size == 1){
-                    // no replay save item
+                    // when size == 1 not save item because already save.
                 }else{
                     dataBase.jobDao().insertResultJob(
                         JobModel(jobsResponse.company,
@@ -58,7 +58,7 @@ class HomeScreenViewModel : ViewModel() {
         }
     }
 
-    // fun add favorite job.
+    // fun add favorite job for result data from api.
     fun addFavoriteJob(context: Context , jobsResponse: JobsResponse){
 
         CoroutineScope(Dispatchers.IO).launch{
@@ -84,25 +84,25 @@ class HomeScreenViewModel : ViewModel() {
     }
 
     // function delete from favorite.
-    fun unFavoriteJob(context: Context , jobsResponse: JobsResponse){
+    fun unFavoriteJob(context: Context , title: String){
 
         CoroutineScope(Dispatchers.IO).launch {
             var dataBase : AppDataBase = Room.databaseBuilder(context,AppDataBase::class.java, Constants.DATA_BASE_NAME).build()
             CoroutineScope(Dispatchers.Main).launch {
-                dataBase.jobDao().unFavoriteJob(jobsResponse.title)
-                Toast.makeText(context,"Un Favorite ${jobsResponse.title}", Toast.LENGTH_SHORT).show()
+                dataBase.jobDao().unFavoriteJob(title)
+                Toast.makeText(context,"Un Favorite ${title}", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     // check select on favorite button.
-    fun checkSelect(context: Context , jobsResponse: JobsResponse , toggleButton: ToggleButton){
+    fun checkSelect(context: Context , title : String , toggleButton: ToggleButton){
         CoroutineScope(Dispatchers.IO).launch {
             var dataBase : AppDataBase = Room.databaseBuilder(context,AppDataBase::class.java, Constants.DATA_BASE_NAME).build()
             CoroutineScope(Dispatchers.Main).launch {
                var allResult =  dataBase.jobDao().selectAllFromFavorite()
                 for(item in allResult){
-                    if( item.title == jobsResponse.title){
+                    if( item.title == title){
                         toggleButton.isChecked = true
                     }
                 }
@@ -111,13 +111,50 @@ class HomeScreenViewModel : ViewModel() {
     }
 
     var getSaveDataLive = MutableLiveData<List<JobModel>>()
-    // function get all data save from database
+    // function get all data save from database.
     fun getSaveDate(context: Context){
         CoroutineScope(Dispatchers.IO).launch {
             var dataBase : AppDataBase = Room.databaseBuilder(context,AppDataBase::class.java, Constants.DATA_BASE_NAME).build()
             CoroutineScope(Dispatchers.Main).launch {
 
                 getSaveDataLive.value = dataBase.jobDao().selectAllJob()
+            }
+        }
+    }
+
+    // fun add for data from room database favorite when no connection with internet job.
+    fun addFavoriteJobFromDatabase(context: Context , jobModel: JobModel){
+
+        CoroutineScope(Dispatchers.IO).launch{
+            var dataBase : AppDataBase = Room.databaseBuilder(context, AppDataBase::class.java,Constants.DATA_BASE_NAME).build()
+            CoroutineScope(Dispatchers.Main).launch{
+                var title = dataBase.jobDao().selectByTitle(jobModel.title)
+                if(title.size == 1){
+                    // when size == 1 not save item because already save.
+                }else{
+                    dataBase.jobDao().addFavoriteJob(
+                        FavoriteJobModel(jobModel.company,
+                            jobModel.company_logo,
+                            jobModel.company_url,
+                            jobModel.description,
+                            jobModel.type,
+                            jobModel.url,
+                            jobModel.title)
+                    )
+                    Toast.makeText(context,"Favorite ${jobModel.title}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    // function delete from favorite for data from room database.
+    fun unFavoriteJobFromDatabase(context: Context , title : String){
+
+        CoroutineScope(Dispatchers.IO).launch {
+            var dataBase : AppDataBase = Room.databaseBuilder(context,AppDataBase::class.java, Constants.DATA_BASE_NAME).build()
+            CoroutineScope(Dispatchers.Main).launch {
+                dataBase.jobDao().unFavoriteJob(title)
+                Toast.makeText(context,"Un Favorite ${title}", Toast.LENGTH_SHORT).show()
             }
         }
     }

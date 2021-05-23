@@ -94,7 +94,7 @@ class HomeScreenFragment : Fragment() , OnClickHomeAdapter , OnClickSaveResult{
 
         // call check select on favorite button.
         homeScreenViewModel.checkSelect(requireActivity(),
-            jobsResponse,
+            jobsResponse.title,
             viewHolder.binding.btnFavoriteJobs)
 
 
@@ -113,7 +113,7 @@ class HomeScreenFragment : Fragment() , OnClickHomeAdapter , OnClickSaveResult{
                 checkBoxArray.put(position , false)
                 // call function unFavorite.
                 homeScreenViewModel.unFavoriteJob(requireActivity(),
-                    jobsResponse)
+                    jobsResponse.title)
             }
         }
     }
@@ -124,6 +124,33 @@ class HomeScreenFragment : Fragment() , OnClickHomeAdapter , OnClickSaveResult{
         jobModel: JobModel,
         position: Int
     ) {
+
+        var checkBoxArray = SparseBooleanArray()
+
+        // call check select on favorite button.
+        homeScreenViewModel.checkSelect(requireActivity(),
+            jobModel.title,
+            viewHolder.binding.btnFavoriteJobs)
+
+
+        viewHolder.binding.btnFavoriteJobs.isChecked = checkBoxArray.get( position , false)
+        // make onClick itemView.
+        viewHolder.binding.btnFavoriteJobs.setOnClickListener {
+
+            if(!checkBoxArray.get( position , false)){
+                viewHolder.binding.btnFavoriteJobs.isChecked = true
+                checkBoxArray.put(position , true)
+                // call function for add job from database to favorite.
+                homeScreenViewModel.addFavoriteJobFromDatabase(requireActivity(),
+                    jobModel)
+            }else{
+                viewHolder.binding.btnFavoriteJobs.isChecked = false
+                checkBoxArray.put(position , false)
+                // call function unFavorite from database.
+                homeScreenViewModel.unFavoriteJobFromDatabase(requireActivity(),
+                    jobModel.title)
+            }
+        }
 
     }
 }
