@@ -30,7 +30,8 @@ class MainActivity : AppCompatActivity() {
         // work tge action bar for fragment page.
         val appBarConfiguration = AppBarConfiguration(setOf(R.id.homeScreenFragment ,
             R.id.searchFragment ,
-            R.id.favoriteFragment))
+            R.id.favoriteFragment,
+            R.id.detailsJobFragment))
         setupActionBarWithNavController(navController , appBarConfiguration)
 
 
@@ -39,7 +40,6 @@ class MainActivity : AppCompatActivity() {
             when(destination.id){
 
                 R.id.welcomeScreenFragment   -> supportActionBar!!.hide()
-
                 else -> supportActionBar!!.show()
             }
         }

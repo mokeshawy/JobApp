@@ -18,7 +18,14 @@
         android:id="@+id/homeScreenFragment"
         android:name="com.example.jobapp.homescreenfragment.HomeScreenFragment"
         android:label="Home"
-        tools:layout="@layout/fragment_home_screen" />
+        tools:layout="@layout/fragment_home_screen" >
+        <argument
+            android:name="jobResponse"
+            app:argType="com.example.jobapp.response.JobsResponse" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_detailsJobFragment"
+            app:destination="@id/detailsJobFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.jobapp.searchfragment.SearchFragment"
@@ -28,5 +35,23 @@
         android:id="@+id/favoriteFragment"
         android:name="com.example.jobapp.favoritefragment.FavoriteFragment"
         android:label="Favorite"
-        tools:layout="@layout/fragment_favorite" />
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_favoriteDetailsFragment"
+            app:destination="@id/favoriteDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsJobFragment"
+        android:name="com.example.jobapp.detailsjobfragment.DetailsJobFragment"
+        android:label="Details"
+        tools:layout="@layout/fragment_details_job" />
+    <fragment
+        android:id="@+id/favoriteDetailsFragment"
+        android:name="com.example.jobapp.favoritedetailsfragment.FavoriteDetailsFragment"
+        android:label="fragment_favorite_details"
+        tools:layout="@layout/fragment_favorite_details" >
+        <argument
+            android:name="favoriteJobModel"
+            app:argType="com.example.jobapp.model.FavoriteJobModel" />
+    </fragment>
 </navigation>

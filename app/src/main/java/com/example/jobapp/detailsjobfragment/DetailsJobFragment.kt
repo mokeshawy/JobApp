@@ -1,59 +1,65 @@
-package com.example.jobapp
+package com.example.jobapp.detailsjobfragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.navArgs
+import com.example.jobapp.R
+import com.example.jobapp.databinding.FragmentDetailsJobBinding
+import com.example.jobapp.model.FavoriteJobModel
+import com.example.jobapp.model.JobModel
+import com.example.jobapp.response.JobsResponse
+import com.example.jobapp.util.Constants
+import com.squareup.picasso.Picasso
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [DetailsJobFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DetailsJobFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    lateinit var binding    : FragmentDetailsJobBinding
+    var jobsResponse        : JobsResponse?     = null
+    var jobModel            : JobModel?         = null
+    override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_details_job, container, false)
+        binding = FragmentDetailsJobBinding.inflate(inflater)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DetailsJobFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DetailsJobFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+
+        // receive object from home screen for result api.
+        if( arguments?.containsKey(Constants.BUNDLE_JOB_RESPONSE_KEY) == true){
+            jobsResponse = arguments?.getSerializable(Constants.BUNDLE_JOB_RESPONSE_KEY) as JobsResponse
+            binding.apply {
+                Picasso.get().load(jobsResponse!!.company_logo).into(ivCompanyLogo)
+                tvCompanyName.text  = jobsResponse!!.company
+                tvJobTitle.text     = jobsResponse!!.title
+                tvJobType.text      = jobsResponse!!.type
+                tvJobUrl.text       = jobsResponse!!.url
+                tvCompanyUrl.text   = jobsResponse!!.company_url
+                tvJobDescription.text = jobsResponse!!.description
             }
+        }
+
+
+
+        // receive object from home screen for result room database when internet connection offline.
+        if( arguments?.containsKey(Constants.BUNDLE_JOB_MODEL_KEY) == true) {
+            jobModel = arguments?.getSerializable(Constants.BUNDLE_JOB_MODEL_KEY) as JobModel
+            binding.apply {
+                Picasso.get().load(jobModel!!.company_logo).into(ivCompanyLogo)
+                tvCompanyName.text = jobModel!!.company
+                tvJobTitle.text = jobModel!!.title
+                tvJobType.text = jobModel!!.type
+                tvJobUrl.text = jobModel!!.url
+                tvCompanyUrl.text = jobModel!!.company_url
+                tvJobDescription.text = jobModel!!.description
+            }
+        }
     }
 }

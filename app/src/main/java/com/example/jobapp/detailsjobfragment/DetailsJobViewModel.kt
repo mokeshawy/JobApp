@@ -1,4 +1,7 @@
 package com.example.jobapp.detailsjobfragment
 
-class DetailsJobViewModel {
+import androidx.lifecycle.ViewModel
+
+class DetailsJobViewModel : ViewModel() {
+
 }

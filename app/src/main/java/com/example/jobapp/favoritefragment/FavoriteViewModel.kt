@@ -17,7 +17,6 @@ import kotlinx.coroutines.launch
 
 class FavoriteViewModel : ViewModel(){
 
-
     val jobSaveResultLiveData = MutableLiveData<List<FavoriteJobModel>>()
     // show result data from database for add to favorite by user.
     fun showDataFromDatabase(context: Context){

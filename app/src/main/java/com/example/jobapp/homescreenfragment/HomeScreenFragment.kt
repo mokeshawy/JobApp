@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.core.content.getSystemService
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.room.Room
 import com.example.jobapp.R
 import com.example.jobapp.adapter.RecyclerFavoriteAdapter
@@ -32,7 +33,9 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 @Suppress("DEPRECATION")
-class HomeScreenFragment : Fragment() , OnClickHomeAdapter , OnClickSaveResult{
+class HomeScreenFragment : Fragment(),
+    OnClickHomeAdapter,
+    OnClickSaveResult{
 
     lateinit var binding            : FragmentHomeScreenBinding
     private val homeScreenViewModel : HomeScreenViewModel by viewModels()
@@ -87,7 +90,7 @@ class HomeScreenFragment : Fragment() , OnClickHomeAdapter , OnClickSaveResult{
         jobsResponse: JobsResponse,
         position: Int) {
 
-        var checkBoxArray = SparseBooleanArray()
+        val checkBoxArray = SparseBooleanArray()
 
         // call function for insert data to room database.
         homeScreenViewModel.insertJobToDatabase(requireActivity(),jobsResponse)
@@ -116,6 +119,13 @@ class HomeScreenFragment : Fragment() , OnClickHomeAdapter , OnClickSaveResult{
                     jobsResponse.title)
             }
         }
+
+        // go details job with jobsResponse object.
+        viewHolder.itemView.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putSerializable(Constants.BUNDLE_JOB_RESPONSE_KEY,jobsResponse)
+            findNavController().navigate(R.id.action_homeScreenFragment_to_detailsJobFragment,bundle)
+        }
     }
 
     // onClick for save data from database.
@@ -125,7 +135,7 @@ class HomeScreenFragment : Fragment() , OnClickHomeAdapter , OnClickSaveResult{
         position: Int
     ) {
 
-        var checkBoxArray = SparseBooleanArray()
+        val checkBoxArray = SparseBooleanArray()
 
         // call check select on favorite button.
         homeScreenViewModel.checkSelect(requireActivity(),
@@ -140,7 +150,7 @@ class HomeScreenFragment : Fragment() , OnClickHomeAdapter , OnClickSaveResult{
             if(!checkBoxArray.get( position , false)){
                 viewHolder.binding.btnFavoriteJobs.isChecked = true
                 checkBoxArray.put(position , true)
-                // call function for add job from database to favorite.
+                // call function for add job from database to favorite
                 homeScreenViewModel.addFavoriteJobFromDatabase(requireActivity(), jobModel)
             }else{
                 viewHolder.binding.btnFavoriteJobs.isChecked = false
@@ -151,5 +161,11 @@ class HomeScreenFragment : Fragment() , OnClickHomeAdapter , OnClickSaveResult{
             }
         }
 
+        // go details job with jobModel object.
+        viewHolder.itemView.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putSerializable(Constants.BUNDLE_JOB_MODEL_KEY,jobModel)
+            findNavController().navigate(R.id.action_homeScreenFragment_to_detailsJobFragment,bundle)
+        }
     }
 }

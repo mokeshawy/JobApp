@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.room.Room
 import com.example.jobapp.R
 import com.example.jobapp.adapter.RecyclerFavoriteAdapter
@@ -60,6 +61,12 @@ class FavoriteFragment : Fragment() , OnClickFavoriteAdapter{
         viewHolder.binding.btnFavoriteJobs.setOnClickListener {
             // call function for delete job from favorite
             favoriteViewModel.deleteFavoriteData(requireActivity(),favoriteJobModel.title)
+        }
+
+        // go details job with favoriteJobModel object.
+        viewHolder.itemView.setOnClickListener {
+            var action = FavoriteFragmentDirections.actionFavoriteFragmentToFavoriteDetailsFragment(favoriteJobModel)
+            findNavController().navigate(action)
         }
     }
 }

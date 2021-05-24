@@ -1,5 +1,7 @@
 package com.example.jobapp.response
 
+import java.io.Serializable
+
 
 data class JobsResponse(
 
@@ -14,4 +16,4 @@ data class JobsResponse(
     val title           : String,
     val type            : String,
     val url             : String
-)
+) : Serializable

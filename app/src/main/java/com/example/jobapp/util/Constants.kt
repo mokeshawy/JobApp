@@ -8,15 +8,19 @@ import com.example.jobapp.R
 object Constants {
 
     // Retrofit Builder
-    const val BASE_URL = "https://jobs.github.com/"
-    const val END_POINT = "positions.json"
+    const val BASE_URL          = "https://jobs.github.com/"
+    const val END_POINT         = "positions.json"
     const val QUERY_DESCRIPTION = "description"
-    const val API_KEY   = "api"
+    const val API_KEY           = "api"
 
     // Room Database table name
     const val DATA_BASE_NAME = "job"
 
 
+    // Bundle key
+    const val BUNDLE_JOB_RESPONSE_KEY   = "jobResponseDetails"
+    const val BUNDLE_JOB_MODEL_KEY      = "jobModelDetails"
+    const val BUNDLE_FAVORITE_JOB_KEY   = "favoriteJobDetails"
 
     // Progress dialog.
     lateinit var mProgressDialog : Dialog

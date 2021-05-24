@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.jobapp.R
 import com.example.jobapp.databinding.FragmentWelcomeScreenBinding
+import com.example.jobapp.util.Constants
 
 class WelcomeScreenFragment : Fragment() {
 
@@ -23,7 +24,10 @@ class WelcomeScreenFragment : Fragment() {
 
         // go from welcome to home page.
         binding.btnStart.setOnClickListener {
+            // Show progress dialog.
+            Constants.showProgressDialog(resources.getString(R.string.please_wait) ,requireActivity())
             findNavController().navigate(R.id.action_welcomeScreenFragment_to_homeScreenFragment)
+            Constants.hideProgressDialog()
         }
     }
 }
