@@ -44,6 +44,13 @@ class SearchFragment : Fragment(),
         searchViewModel.readData(requireActivity()).observe(viewLifecycleOwner, Observer{
             binding.rvSearchList.adapter = searchAdapter
             searchAdapter.setData(it)
+            if(it.isNotEmpty()){
+                binding.rvSearchList.visibility = View.VISIBLE
+                binding.tvJobNotFound.visibility = View.GONE
+            }else{
+                binding.rvSearchList.visibility = View.GONE
+                binding.tvJobNotFound.visibility = View.VISIBLE
+            }
         })
 
         // call function fro get data from database after entry company name or title for job
@@ -66,6 +73,13 @@ class SearchFragment : Fragment(),
         searchViewModel.searchDatabase(requireContext(),searchQuery).observe(viewLifecycleOwner,Observer{ list ->
             list.let {
                 searchAdapter.setData(it)
+                if(it.isNotEmpty()){
+                    binding.rvSearchList.visibility = View.VISIBLE
+                    binding.tvJobNotFound.visibility = View.GONE
+                }else{
+                    binding.rvSearchList.visibility = View.GONE
+                    binding.tvJobNotFound.visibility = View.VISIBLE
+                }
             }
         })
     }
@@ -100,7 +114,7 @@ class SearchFragment : Fragment(),
                     jobModel.title)
             }
         }
-
+        // go to details page from search page show details for any job search.
         viewHolder.itemView.setOnClickListener {
             val bundle = Bundle()
             bundle.putSerializable(Constants.BUNDLE_JOB_MODEL_KEY,jobModel)

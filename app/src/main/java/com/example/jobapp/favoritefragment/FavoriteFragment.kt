@@ -1,6 +1,7 @@
 package com.example.jobapp.favoritefragment
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.SparseBooleanArray
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,6 +18,7 @@ import com.example.jobapp.model.FavoriteJobModel
 import com.example.jobapp.model.JobModel
 import com.example.jobapp.onclickforadapter.OnClickFavoriteAdapter
 import com.example.jobapp.roomdatabase.AppDataBase
+import com.example.jobapp.roomdatabase.DatabaseModule
 import com.example.jobapp.util.Constants
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -39,9 +41,18 @@ class FavoriteFragment : Fragment() , OnClickFavoriteAdapter{
         binding.lifecycleOwner = this
         binding.favoriteVarViewModel = favoriteViewModel
 
+
+
         // show data from favorite from database.
         favoriteViewModel.showDataFromDatabase(requireActivity()).observe(viewLifecycleOwner, Observer {
             binding.rvJobsList.adapter = RecyclerFavoriteAdapter(it,this)
+            if(it.isNotEmpty()){
+                binding.rvJobsList.visibility = View.VISIBLE
+                binding.tvFavoriteNotFound.visibility = View.GONE
+            }else{
+                binding.rvJobsList.visibility = View.GONE
+                binding.tvFavoriteNotFound.visibility = View.VISIBLE
+            }
         })
     }
 

@@ -21,18 +21,6 @@ class FavoriteViewModel : ViewModel(){
         return DatabaseModule.provideDatabase(context).jobDao().selectFavoriteJob().asLiveData()
     }
 
-//    val jobSaveResultLiveData = MutableLiveData<List<FavoriteJobModel>>()
-//    // show result data from database for add to favorite by user.
-//    fun showDataFromDatabase(context: Context){
-//        CoroutineScope(Dispatchers.IO).async {
-//            val dataBase = DatabaseModule.provideDatabase(context)
-//            CoroutineScope(Dispatchers.Main).async {
-//                jobSaveResultLiveData.value = dataBase.jobDao().selectAllFromFavorite()
-//
-//            }
-//        }
-//    }
-
     // function for delete favorite data.
     fun deleteFavoriteData(context: Context , title : String){
         CoroutineScope(Dispatchers.IO).launch {

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -60,13 +61,28 @@ class HomeScreenFragment : Fragment(),
                             binding.rvJobsList.adapter = RecyclerJobsListAdapter(it,this)
                             //hide progress dialog.
                             Constants.hideProgressDialog()
+                            if(it.isNotEmpty()){
+                                binding.rvJobsList.visibility = View.VISIBLE
+                                binding.tvJobNotFound.visibility = View.GONE
+                            }else{
+                                binding.rvJobsList.visibility = View.GONE
+                                binding.tvJobNotFound.visibility = View.VISIBLE
+                            }
                         })
                     }
                 }else{
                     // get data from database when no internet connection.
                     homeScreenViewModel.getSaveDate(requireActivity()).observe(viewLifecycleOwner,Observer{
                         binding.rvJobsList.adapter = RecyclerSaveResultAdapter(it,this)
+                        if(it.isNotEmpty()){
+                            binding.rvJobsList.visibility = View.VISIBLE
+                            binding.tvJobNotFound.visibility = View.GONE
+                        }else{
+                            binding.rvJobsList.visibility = View.GONE
+                            binding.tvJobNotFound.visibility = View.VISIBLE
+                        }
                         Constants.hideProgressDialog()
+                        Toast.makeText(requireActivity(),"no internet connection",Toast.LENGTH_SHORT).show()
                     })
             }
         }
