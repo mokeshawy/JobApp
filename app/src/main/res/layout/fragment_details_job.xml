@@ -78,7 +78,9 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Company :" />
+                                android:text="Company :"
+                                android:textSize="14sp"
+                                android:textStyle="bold"/>
 
                             <TextView
                                 android:id="@+id/tv_company_name"
@@ -97,7 +99,9 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Job Title :" />
+                                android:text="Job Title :"
+                                android:textSize="14sp"
+                                android:textStyle="bold"/>
 
                             <TextView
                                 android:id="@+id/tv_job_title"
@@ -116,7 +120,9 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Job Type :"  />
+                                android:text="Job Type :"
+                                android:textSize="14sp"
+                                android:textStyle="bold"/>
 
                             <TextView
                                 android:id="@+id/tv_job_type"
@@ -135,13 +141,16 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Job Link :"  />
+                                android:text="Job Link :"
+                                android:textSize="14sp"
+                                android:textStyle="bold"/>
 
                             <TextView
                                 android:id="@+id/tv_job_url"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"/>
+                                android:layout_marginLeft="5dp"
+                                android:textColor="@color/colorUrlLink"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -154,13 +163,16 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Company Link :"  />
+                                android:text="Company Link :"
+                                android:textSize="14sp"
+                                android:textStyle="bold"/>
 
                             <TextView
                                 android:id="@+id/tv_company_url"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"/>
+                                android:layout_marginLeft="5dp"
+                                android:textColor="@color/colorUrlLink"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -173,7 +185,9 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Description :"  />
+                                android:text="Description :"
+                                android:textSize="14sp"
+                                android:textStyle="bold"/>
 
                             <TextView
                                 android:id="@+id/tv_job_description"

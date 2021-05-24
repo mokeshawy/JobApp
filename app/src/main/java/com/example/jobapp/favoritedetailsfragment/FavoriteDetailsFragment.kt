@@ -1,5 +1,7 @@
 package com.example.jobapp.favoritedetailsfragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -32,6 +34,20 @@ class FavoriteDetailsFragment : Fragment() {
             tvJobUrl.text       = favoriteJobModel.favoriteJobModel.url
             tvCompanyUrl.text   = favoriteJobModel.favoriteJobModel.company_url
             tvJobDescription.text = favoriteJobModel.favoriteJobModel.description
+
+            // open job url.
+            tvJobUrl.setOnClickListener {
+                val uri = Uri.parse(favoriteJobModel.favoriteJobModel.url)
+                val intent = Intent(Intent.ACTION_VIEW,uri)
+                startActivity(intent)
+            }
+
+            // open company url for.
+            tvCompanyUrl.setOnClickListener {
+                val uri = Uri.parse(favoriteJobModel.favoriteJobModel.company_url)
+                val intent = Intent(Intent.ACTION_VIEW,uri)
+                startActivity(intent)
+            }
         }
 
     }

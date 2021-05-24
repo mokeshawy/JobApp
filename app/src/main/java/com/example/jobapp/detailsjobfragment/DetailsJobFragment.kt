@@ -1,5 +1,7 @@
 package com.example.jobapp.detailsjobfragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -43,6 +45,20 @@ class DetailsJobFragment : Fragment() {
                 tvJobUrl.text       = jobsResponse!!.url
                 tvCompanyUrl.text   = jobsResponse!!.company_url
                 tvJobDescription.text = jobsResponse!!.description
+
+                // open job url.
+                tvJobUrl.setOnClickListener {
+                    val uri = Uri.parse(jobsResponse!!.url)
+                    val intent = Intent(Intent.ACTION_VIEW,uri)
+                    startActivity(intent)
+                }
+
+                // open company url for.
+               tvCompanyUrl.setOnClickListener {
+                    val uri = Uri.parse(jobsResponse!!.company_url)
+                    val intent = Intent(Intent.ACTION_VIEW,uri)
+                    startActivity(intent)
+                }
             }
         }
 
@@ -59,6 +75,20 @@ class DetailsJobFragment : Fragment() {
                 tvJobUrl.text = jobModel!!.url
                 tvCompanyUrl.text = jobModel!!.company_url
                 tvJobDescription.text = jobModel!!.description
+
+                // open job url.
+                tvJobUrl.setOnClickListener {
+                    val uri = Uri.parse(jobModel!!.url)
+                    val intent = Intent(Intent.ACTION_VIEW,uri)
+                    startActivity(intent)
+                }
+
+                // open company url for.
+                tvCompanyUrl.setOnClickListener {
+                    val uri = Uri.parse(jobModel!!.company_url)
+                    val intent = Intent(Intent.ACTION_VIEW,uri)
+                    startActivity(intent)
+                }
             }
         }
     }

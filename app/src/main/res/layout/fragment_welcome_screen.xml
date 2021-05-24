@@ -53,17 +53,16 @@
                 android:id="@+id/btn_start"
                 android:layout_width="250dp"
                 android:layout_height="40dp"
-                android:layout_marginBottom="240dp"
                 android:background="@drawable/button_background"
                 android:text="@string/btn_start"
-                android:textSize="15sp"
                 android:textColor="@color/white"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.496"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintVertical_bias="0.827" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

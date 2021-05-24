@@ -24,7 +24,8 @@
             app:argType="com.example.jobapp.response.JobsResponse" />
         <action
             android:id="@+id/action_homeScreenFragment_to_detailsJobFragment"
-            app:destination="@id/detailsJobFragment" />
+            app:destination="@id/detailsJobFragment"
+            app:enterAnim="@android:anim/fade_in" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -33,7 +34,8 @@
         tools:layout="@layout/fragment_search" >
         <action
             android:id="@+id/action_searchFragment_to_detailsJobFragment"
-            app:destination="@id/detailsJobFragment" />
+            app:destination="@id/detailsJobFragment"
+            app:enterAnim="@android:anim/fade_in" />
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
@@ -42,7 +44,8 @@
         tools:layout="@layout/fragment_favorite" >
         <action
             android:id="@+id/action_favoriteFragment_to_favoriteDetailsFragment"
-            app:destination="@id/favoriteDetailsFragment" />
+            app:destination="@id/favoriteDetailsFragment"
+            app:enterAnim="@android:anim/fade_in" />
     </fragment>
     <fragment
         android:id="@+id/detailsJobFragment"

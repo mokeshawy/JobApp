@@ -17,7 +17,8 @@ import com.example.jobapp.model.JobModel
 import com.example.jobapp.onclickforadapter.OnClickSearchAdapter
 import com.example.jobapp.util.Constants
 
-class SearchFragment : Fragment() , OnClickSearchAdapter{
+class SearchFragment : Fragment(),
+    OnClickSearchAdapter{
 
     lateinit var binding        : FragmentSearchBinding
     private val searchViewModel : SearchViewModel by viewModels()
@@ -74,8 +75,6 @@ class SearchFragment : Fragment() , OnClickSearchAdapter{
         jobModel: JobModel,
         position: Int
     ) {
-
-
 
         // call check select on favorite button.
         searchViewModel.checkSelect(requireActivity(),

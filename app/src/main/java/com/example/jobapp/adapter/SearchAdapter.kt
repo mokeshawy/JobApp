@@ -1,5 +1,6 @@
 package com.example.jobapp.adapter
 
+import android.graphics.Color.parseColor
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -35,6 +36,7 @@ class SearchAdapter ( var onClickSearch : OnClickSearchAdapter) : RecyclerView.A
         viewHolder.binding.tvCompanyName.text   = oldData[position].company
         viewHolder.binding.tvJobTitle.text      = oldData[position].title
         Picasso.get().load(oldData[position].company_logo).into(viewHolder.binding.ivCompanyLogo)
+
 
         // call fun initialize.
         viewHolder.initialize( viewHolder , oldData[position] , onClickSearch)
