@@ -5,18 +5,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jobapp.databinding.JobsListItemBinding
 import com.example.jobapp.model.JobModel
+import com.example.jobapp.onclickforadapter.OnClickSearchAdapter
 import com.squareup.picasso.Picasso
 
-class SearchAdapter () : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
+class SearchAdapter ( var onClickSearch : OnClickSearchAdapter) : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
 
     private var oldData = emptyList<JobModel>()
 
     class ViewHolder(var binding : JobsListItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         // initialize onClickUsersAdapter from interface
-//        fun initialize(viewHolder: ViewHolder, jobModel : JobModel, action : OnClickSaveResult){
-//            action.onClickSaveResult(viewHolder , jobModel , adapterPosition)
-//        }
+        fun initialize(viewHolder: ViewHolder, jobModel : JobModel, action : OnClickSearchAdapter){
+            action.onClickSearchResult(viewHolder , jobModel , adapterPosition)
+        }
 
     }
     // Create new views (invoked by the layout manager)
@@ -36,7 +37,7 @@ class SearchAdapter () : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
         Picasso.get().load(oldData[position].company_logo).into(viewHolder.binding.ivCompanyLogo)
 
         // call fun initialize.
-        //viewHolder.initialize( viewHolder , mJobModel[position] , onClickSaveResult)
+        viewHolder.initialize( viewHolder , oldData[position] , onClickSearch)
 
     }
 

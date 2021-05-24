@@ -4,20 +4,19 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jobapp.databinding.JobsListItemBinding
-import com.example.jobapp.model.FavoriteJobModel
 import com.example.jobapp.model.JobModel
-import com.example.jobapp.onclickforadapter.OnClickSaveResult
+import com.example.jobapp.onclickforadapter.OnClickSaveResultAdpter
 import com.squareup.picasso.Picasso
 
 class RecyclerSaveResultAdapter(private var mJobModel: List<JobModel> ,
-                                var onClickSaveResult: OnClickSaveResult) : RecyclerView.Adapter<RecyclerSaveResultAdapter.ViewHolder>() {
+                                var onClickSaveResult: OnClickSaveResultAdpter) : RecyclerView.Adapter<RecyclerSaveResultAdapter.ViewHolder>() {
 
     private var oldData = emptyList<JobModel>()
 
     class ViewHolder(var binding : JobsListItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         // initialize onClickUsersAdapter from interface
-        fun initialize(viewHolder: ViewHolder, jobModel : JobModel , action : OnClickSaveResult){
+        fun initialize(viewHolder: ViewHolder, jobModel : JobModel , action : OnClickSaveResultAdpter){
             action.onClickSaveResult(viewHolder , jobModel , adapterPosition)
         }
 

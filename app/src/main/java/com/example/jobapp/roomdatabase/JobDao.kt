@@ -38,6 +38,9 @@ interface JobDao {
     @Query("SELECT * FROM FavoriteJobModel")
     suspend fun selectAllFromFavorite() : List<FavoriteJobModel>
 
+    @Query("SELECT * FROM FavoriteJobModel")
+    fun selectFavoriteJob() : Flow<List<FavoriteJobModel>>
+
     @Query("SELECT * FROM FavoriteJobModel WHERE title = :title")
     suspend fun selectFavoriteByTitle(title : String) : List<FavoriteJobModel>
 

@@ -40,8 +40,7 @@ class FavoriteFragment : Fragment() , OnClickFavoriteAdapter{
         binding.favoriteVarViewModel = favoriteViewModel
 
         // show data from favorite from database.
-        favoriteViewModel.showDataFromDatabase(requireActivity())
-        favoriteViewModel.jobSaveResultLiveData.observe(viewLifecycleOwner, Observer {
+        favoriteViewModel.showDataFromDatabase(requireActivity()).observe(viewLifecycleOwner, Observer {
             binding.rvJobsList.adapter = RecyclerFavoriteAdapter(it,this)
         })
     }

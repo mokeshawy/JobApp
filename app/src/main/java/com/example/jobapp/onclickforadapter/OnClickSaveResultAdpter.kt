@@ -4,7 +4,7 @@ import com.example.jobapp.adapter.RecyclerSaveResultAdapter
 import com.example.jobapp.model.FavoriteJobModel
 import com.example.jobapp.model.JobModel
 
-interface OnClickSaveResult {
+interface OnClickSaveResultAdpter {
 
     fun onClickSaveResult( viewHolder: RecyclerSaveResultAdapter.ViewHolder,
                            jobModel: JobModel,

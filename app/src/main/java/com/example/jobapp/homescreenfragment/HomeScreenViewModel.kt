@@ -78,7 +78,6 @@ class HomeScreenViewModel : ViewModel() {
                         jobsResponse.url,
                         jobsResponse.title)
                     )
-                    Toast.makeText(context,"Favorite ${jobsResponse.title}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -86,17 +85,15 @@ class HomeScreenViewModel : ViewModel() {
 
     // function delete from favorite.
     fun unFavoriteJob(context: Context , title: String){
-
         CoroutineScope(Dispatchers.IO).launch {
             val dataBase = DatabaseModule.provideDatabase(context)
             CoroutineScope(Dispatchers.Main).launch {
                 dataBase.jobDao().unFavoriteJob(title)
-                Toast.makeText(context,"Un Favorite ${title}", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    // check select on favorite button.
+    // check select on add favorite button.
     fun checkSelect(context: Context , title : String , toggleButton: ToggleButton){
         CoroutineScope(Dispatchers.IO).launch {
             val dataBase = DatabaseModule.provideDatabase(context)
