@@ -20,7 +20,6 @@ object Constants {
     // Bundle key
     const val BUNDLE_JOB_RESPONSE_KEY   = "jobResponseDetails"
     const val BUNDLE_JOB_MODEL_KEY      = "jobModelDetails"
-    const val BUNDLE_FAVORITE_JOB_KEY   = "favoriteJobDetails"
 
     // Progress dialog.
     lateinit var mProgressDialog : Dialog

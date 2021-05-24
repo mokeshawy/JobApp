@@ -73,9 +73,8 @@ class HomeScreenFragment : Fragment(),
                         })
                     }
                 }else{
-                    // get data from database when no internet connection
-                    homeScreenViewModel.getSaveDate(requireActivity())
-                    homeScreenViewModel.getSaveDataLive.observe(viewLifecycleOwner, Observer {
+                    // get data from database when no internet connection.
+                    homeScreenViewModel.getSaveDate(requireActivity()).observe(viewLifecycleOwner,{
                         binding.rvJobsList.adapter = RecyclerSaveResultAdapter(it,this)
                         Constants.hideProgressDialog()
                     })

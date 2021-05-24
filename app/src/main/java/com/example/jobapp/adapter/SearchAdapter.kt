@@ -4,22 +4,19 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jobapp.databinding.JobsListItemBinding
-import com.example.jobapp.model.FavoriteJobModel
 import com.example.jobapp.model.JobModel
-import com.example.jobapp.onclickforadapter.OnClickSaveResult
 import com.squareup.picasso.Picasso
 
-class RecyclerSaveResultAdapter(private var mJobModel: List<JobModel> ,
-                                var onClickSaveResult: OnClickSaveResult) : RecyclerView.Adapter<RecyclerSaveResultAdapter.ViewHolder>() {
+class SearchAdapter () : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
 
     private var oldData = emptyList<JobModel>()
 
     class ViewHolder(var binding : JobsListItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         // initialize onClickUsersAdapter from interface
-        fun initialize(viewHolder: ViewHolder, jobModel : JobModel , action : OnClickSaveResult){
-            action.onClickSaveResult(viewHolder , jobModel , adapterPosition)
-        }
+//        fun initialize(viewHolder: ViewHolder, jobModel : JobModel, action : OnClickSaveResult){
+//            action.onClickSaveResult(viewHolder , jobModel , adapterPosition)
+//        }
 
     }
     // Create new views (invoked by the layout manager)
@@ -34,18 +31,18 @@ class RecyclerSaveResultAdapter(private var mJobModel: List<JobModel> ,
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
 
-        viewHolder.binding.tvCompanyName.text   = mJobModel[position].company
-        viewHolder.binding.tvJobTitle.text      = mJobModel[position].title
-        Picasso.get().load(mJobModel[position].company_logo).into(viewHolder.binding.ivCompanyLogo)
+        viewHolder.binding.tvCompanyName.text   = oldData[position].company
+        viewHolder.binding.tvJobTitle.text      = oldData[position].title
+        Picasso.get().load(oldData[position].company_logo).into(viewHolder.binding.ivCompanyLogo)
 
         // call fun initialize.
-        viewHolder.initialize( viewHolder , mJobModel[position] , onClickSaveResult)
+        //viewHolder.initialize( viewHolder , mJobModel[position] , onClickSaveResult)
 
     }
 
 
     // Return the size of your dataset (invoked by the layout manager)
-    override fun getItemCount() = mJobModel.size
+    override fun getItemCount() = oldData.size
 
     fun setData(newData: List<JobModel>){
         oldData = newData

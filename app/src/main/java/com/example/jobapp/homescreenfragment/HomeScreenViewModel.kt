@@ -4,14 +4,15 @@ package com.example.jobapp.homescreenfragment
 import android.content.Context
 import android.widget.Toast
 import android.widget.ToggleButton
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.room.Room
+import androidx.lifecycle.asLiveData
+import com.example.jobapp.roomdatabase.DatabaseModule
 import com.example.jobapp.model.FavoriteJobModel
 import com.example.jobapp.model.JobModel
 import com.example.jobapp.retrofit.RetrofitBuilder
 import com.example.jobapp.response.JobsResponse
-import com.example.jobapp.roomdatabase.AppDataBase
 import com.example.jobapp.util.Constants
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -38,9 +39,9 @@ class HomeScreenViewModel : ViewModel() {
                              jobsResponse : JobsResponse){
 
         CoroutineScope(Dispatchers.IO).launch {
-            var dataBase : AppDataBase = Room.databaseBuilder(context, AppDataBase::class.java , Constants.DATA_BASE_NAME).build()
+            val dataBase = DatabaseModule.provideDatabase(context)
             CoroutineScope(Dispatchers.Main).launch {
-                var title = dataBase.jobDao().selectByTitle(jobsResponse.title)
+                val title = dataBase.jobDao().selectByTitle(jobsResponse.title)
                 if( title.size == 1){
                     // when size == 1 not save item because already save.
                 }else{
@@ -62,7 +63,7 @@ class HomeScreenViewModel : ViewModel() {
     fun addFavoriteJob(context: Context , jobsResponse: JobsResponse){
 
         CoroutineScope(Dispatchers.IO).launch{
-            var dataBase : AppDataBase = Room.databaseBuilder(context, AppDataBase::class.java,Constants.DATA_BASE_NAME).build()
+            var dataBase  = DatabaseModule.provideDatabase(context)
             CoroutineScope(Dispatchers.Main).launch{
                 var title = dataBase.jobDao().selectFavoriteByTitle(jobsResponse.title)
                 if(title.size == 1){
@@ -87,7 +88,7 @@ class HomeScreenViewModel : ViewModel() {
     fun unFavoriteJob(context: Context , title: String){
 
         CoroutineScope(Dispatchers.IO).launch {
-            var dataBase : AppDataBase = Room.databaseBuilder(context,AppDataBase::class.java, Constants.DATA_BASE_NAME).build()
+            val dataBase = DatabaseModule.provideDatabase(context)
             CoroutineScope(Dispatchers.Main).launch {
                 dataBase.jobDao().unFavoriteJob(title)
                 Toast.makeText(context,"Un Favorite ${title}", Toast.LENGTH_SHORT).show()
@@ -98,9 +99,9 @@ class HomeScreenViewModel : ViewModel() {
     // check select on favorite button.
     fun checkSelect(context: Context , title : String , toggleButton: ToggleButton){
         CoroutineScope(Dispatchers.IO).launch {
-            var dataBase : AppDataBase = Room.databaseBuilder(context,AppDataBase::class.java, Constants.DATA_BASE_NAME).build()
+            val dataBase = DatabaseModule.provideDatabase(context)
             CoroutineScope(Dispatchers.Main).launch {
-               var allResult =  dataBase.jobDao().selectAllFromFavorite()
+                val allResult =  dataBase.jobDao().selectAllFromFavorite()
                 for(item in allResult){
                     if( item.title == title){
                         toggleButton.isChecked = true
@@ -110,25 +111,18 @@ class HomeScreenViewModel : ViewModel() {
         }
     }
 
-    var getSaveDataLive = MutableLiveData<List<JobModel>>()
-    // function get all data save from database.
-    fun getSaveDate(context: Context){
-        CoroutineScope(Dispatchers.IO).launch {
-            var dataBase : AppDataBase = Room.databaseBuilder(context,AppDataBase::class.java, Constants.DATA_BASE_NAME).build()
-            CoroutineScope(Dispatchers.Main).launch {
 
-                getSaveDataLive.value = dataBase.jobDao().selectAllJob()
-            }
-        }
+    // function get all data save from database.
+    fun getSaveDate(context: Context) : LiveData<List<JobModel>>{
+        return DatabaseModule.provideDatabase(context).jobDao().selectAllJob().asLiveData()
     }
 
     // fun add for data from room database to favorite when no connection with internet job.
     fun addFavoriteJobFromDatabase(context: Context , jobModel: JobModel){
-
         CoroutineScope(Dispatchers.IO).launch{
-            var dataBase : AppDataBase = Room.databaseBuilder(context, AppDataBase::class.java,Constants.DATA_BASE_NAME).build()
+            val dataBase = DatabaseModule.provideDatabase(context)
             CoroutineScope(Dispatchers.Main).launch{
-                var title = dataBase.jobDao().selectFavoriteByTitle(jobModel.title)
+                val title = dataBase.jobDao().selectFavoriteByTitle(jobModel.title)
                 if(title.size == 1){
                     // when size == 1 not save item because already save.
                 }else{
@@ -146,9 +140,8 @@ class HomeScreenViewModel : ViewModel() {
 
     // function delete from favorite for data from room database.
     fun unFavoriteJobFromDatabase(context: Context , title : String){
-
         CoroutineScope(Dispatchers.IO).launch {
-            var dataBase : AppDataBase = Room.databaseBuilder(context,AppDataBase::class.java, Constants.DATA_BASE_NAME).build()
+            val dataBase = DatabaseModule.provideDatabase(context)
             CoroutineScope(Dispatchers.Main).launch {
                 dataBase.jobDao().unFavoriteJob(title)
             }
