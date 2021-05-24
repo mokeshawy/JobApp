@@ -3,15 +3,19 @@ package com.example.jobapp.searchfragment
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.SparseBooleanArray
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import com.example.jobapp.R
 import com.example.jobapp.adapter.SearchAdapter
 import com.example.jobapp.databinding.FragmentSearchBinding
 import com.example.jobapp.model.JobModel
 import com.example.jobapp.onclickforadapter.OnClickSearchAdapter
+import com.example.jobapp.util.Constants
 
 class SearchFragment : Fragment() , OnClickSearchAdapter{
 
@@ -70,8 +74,38 @@ class SearchFragment : Fragment() , OnClickSearchAdapter{
         jobModel: JobModel,
         position: Int
     ) {
+
+
+
+        // call check select on favorite button.
+        searchViewModel.checkSelect(requireActivity(),
+            jobModel.title,
+            viewHolder.binding.btnFavoriteJobs)
+
+
+        val checkBoxArray = SparseBooleanArray()
+        viewHolder.binding.btnFavoriteJobs.isChecked = checkBoxArray.get( position , false)
+        // make onClick itemView.
+        viewHolder.binding.btnFavoriteJobs.setOnClickListener {
+
+            if(!checkBoxArray.get( position , false)){
+                viewHolder.binding.btnFavoriteJobs.isChecked = true
+                checkBoxArray.put(position , true)
+                // call function for add job from database to favorite
+                searchViewModel.addFavoriteJobFromDatabase(requireActivity(), jobModel)
+            }else{
+                viewHolder.binding.btnFavoriteJobs.isChecked = false
+                checkBoxArray.put(position , false)
+                // call function unFavorite from database.
+                searchViewModel.unFavoriteJobFromDatabase(requireActivity(),
+                    jobModel.title)
+            }
+        }
+
         viewHolder.itemView.setOnClickListener {
-            Toast.makeText(requireActivity(),jobModel.title,Toast.LENGTH_SHORT).show()
+            val bundle = Bundle()
+            bundle.putSerializable(Constants.BUNDLE_JOB_MODEL_KEY,jobModel)
+            findNavController().navigate(R.id.action_searchFragment_to_detailsJobFragment,bundle)
         }
     }
 }

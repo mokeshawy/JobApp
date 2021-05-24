@@ -21,6 +21,7 @@ import kotlinx.coroutines.launch
 
 class HomeScreenViewModel : ViewModel() {
 
+                        // function work when internet connection //
 
     val jobResultLiveData = MutableLiveData<List<JobsResponse>>()
     // get data from api and show in home screen page.
@@ -92,6 +93,10 @@ class HomeScreenViewModel : ViewModel() {
             }
         }
     }
+
+    // ============================================================================================================== //
+
+                            // function work when no internet connection //
 
     // check select on add favorite button.
     fun checkSelect(context: Context , title : String , toggleButton: ToggleButton){

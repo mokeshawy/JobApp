@@ -79,8 +79,6 @@ class HomeScreenFragment : Fragment(),
         jobsResponse: JobsResponse,
         position: Int) {
 
-        val checkBoxArray = SparseBooleanArray()
-
         // call function for insert data to room database.
         homeScreenViewModel.insertJobToDatabase(requireActivity(),jobsResponse)
 
@@ -90,6 +88,7 @@ class HomeScreenFragment : Fragment(),
             viewHolder.binding.btnFavoriteJobs)
 
 
+        val checkBoxArray = SparseBooleanArray()
         viewHolder.binding.btnFavoriteJobs.isChecked = checkBoxArray.get( position , false)
         // make onClick itemView.
         viewHolder.binding.btnFavoriteJobs.setOnClickListener {
@@ -124,14 +123,13 @@ class HomeScreenFragment : Fragment(),
         position: Int
     ) {
 
-        val checkBoxArray = SparseBooleanArray()
-
         // call check select on favorite button.
         homeScreenViewModel.checkSelect(requireActivity(),
             jobModel.title,
             viewHolder.binding.btnFavoriteJobs)
 
 
+        val checkBoxArray = SparseBooleanArray()
         viewHolder.binding.btnFavoriteJobs.isChecked = checkBoxArray.get( position , false)
         // make onClick itemView.
         viewHolder.binding.btnFavoriteJobs.setOnClickListener {
