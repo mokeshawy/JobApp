@@ -59,28 +59,22 @@ class HomeScreenFragment : Fragment(),
                         homeScreenViewModel.getJobResult()
                         homeScreenViewModel.jobResultLiveData.observe(viewLifecycleOwner, Observer {
                             binding.rvJobsList.adapter = RecyclerJobsListAdapter(it,this)
+
+                            // show recycler when found data and hide when not found.
+                            Constants.showRecycler(it,binding.rvJobsList,binding.tvJobNotFound)
+
                             //hide progress dialog.
                             Constants.hideProgressDialog()
-                            if(it.isNotEmpty()){
-                                binding.rvJobsList.visibility = View.VISIBLE
-                                binding.tvJobNotFound.visibility = View.GONE
-                            }else{
-                                binding.rvJobsList.visibility = View.GONE
-                                binding.tvJobNotFound.visibility = View.VISIBLE
-                            }
+
                         })
                     }
                 }else{
                     // get data from database when no internet connection.
                     homeScreenViewModel.getSaveDate(requireActivity()).observe(viewLifecycleOwner,Observer{
                         binding.rvJobsList.adapter = RecyclerSaveResultAdapter(it,this)
-                        if(it.isNotEmpty()){
-                            binding.rvJobsList.visibility = View.VISIBLE
-                            binding.tvJobNotFound.visibility = View.GONE
-                        }else{
-                            binding.rvJobsList.visibility = View.GONE
-                            binding.tvJobNotFound.visibility = View.VISIBLE
-                        }
+
+                        // show recycler when found data and hide when not found.
+                        Constants.showRecycler(it,binding.rvJobsList,binding.tvJobNotFound)
                         Constants.hideProgressDialog()
                         Toast.makeText(requireActivity(),"no internet connection",Toast.LENGTH_SHORT).show()
                     })

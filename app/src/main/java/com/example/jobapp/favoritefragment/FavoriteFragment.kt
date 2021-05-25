@@ -46,13 +46,9 @@ class FavoriteFragment : Fragment() , OnClickFavoriteAdapter{
         // show data from favorite from database.
         favoriteViewModel.showDataFromDatabase(requireActivity()).observe(viewLifecycleOwner, Observer {
             binding.rvJobsList.adapter = RecyclerFavoriteAdapter(it,this)
-            if(it.isNotEmpty()){
-                binding.rvJobsList.visibility = View.VISIBLE
-                binding.tvFavoriteNotFound.visibility = View.GONE
-            }else{
-                binding.rvJobsList.visibility = View.GONE
-                binding.tvFavoriteNotFound.visibility = View.VISIBLE
-            }
+
+            // show recycler when found data and hide when not found.
+            Constants.showRecycler(it,binding.rvJobsList,binding.tvFavoriteNotFound)
         })
     }
 

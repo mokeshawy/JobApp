@@ -44,13 +44,9 @@ class SearchFragment : Fragment(),
         searchViewModel.readData(requireActivity()).observe(viewLifecycleOwner, Observer{
             binding.rvSearchList.adapter = searchAdapter
             searchAdapter.setData(it)
-            if(it.isNotEmpty()){
-                binding.rvSearchList.visibility = View.VISIBLE
-                binding.tvJobNotFound.visibility = View.GONE
-            }else{
-                binding.rvSearchList.visibility = View.GONE
-                binding.tvJobNotFound.visibility = View.VISIBLE
-            }
+
+            // show recycler when found data and hide when not found.
+            Constants.showRecycler(it,binding.rvSearchList,binding.tvJobNotFound)
         })
 
         // call function fro get data from database after entry company name or title for job
@@ -73,13 +69,7 @@ class SearchFragment : Fragment(),
         searchViewModel.searchDatabase(requireContext(),searchQuery).observe(viewLifecycleOwner,Observer{ list ->
             list.let {
                 searchAdapter.setData(it)
-                if(it.isNotEmpty()){
-                    binding.rvSearchList.visibility = View.VISIBLE
-                    binding.tvJobNotFound.visibility = View.GONE
-                }else{
-                    binding.rvSearchList.visibility = View.GONE
-                    binding.tvJobNotFound.visibility = View.VISIBLE
-                }
+                Constants.showRecycler(it,binding.rvSearchList,binding.tvJobNotFound)
             }
         })
     }

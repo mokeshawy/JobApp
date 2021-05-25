@@ -2,7 +2,9 @@ package com.example.jobapp.util
 
 import android.app.Dialog
 import android.content.Context
+import android.view.View
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.example.jobapp.R
 
 object Constants {
@@ -43,6 +45,17 @@ object Constants {
     // hide progress bar.
     fun hideProgressDialog(){
         mProgressDialog.dismiss()
+    }
+
+    // show recycler when found data and hide when not found.
+    fun showRecycler( list : List<Any> , recyclerView : RecyclerView , textView : TextView){
+        if(list.isNotEmpty()){
+            recyclerView.visibility = View.VISIBLE
+            textView.visibility     = View.GONE
+        }else{
+            recyclerView.visibility = View.GONE
+            textView.visibility     = View.VISIBLE
+        }
     }
 
 }
