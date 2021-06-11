@@ -48,15 +48,15 @@ class DetailsJobFragment : Fragment() {
 
                 // open job url.
                 tvJobUrl.setOnClickListener {
-                    val uri = Uri.parse(jobsResponse!!.url)
-                    val intent = Intent(Intent.ACTION_VIEW,uri)
+                    val uri     = Uri.parse(jobsResponse!!.url)
+                    val intent  = Intent(Intent.ACTION_VIEW,uri)
                     startActivity(intent)
                 }
 
                 // open company url for.
                tvCompanyUrl.setOnClickListener {
-                    val uri = Uri.parse(jobsResponse!!.company_url)
-                    val intent = Intent(Intent.ACTION_VIEW,uri)
+                    val uri     = Uri.parse(jobsResponse!!.company_url)
+                    val intent  = Intent(Intent.ACTION_VIEW,uri)
                     startActivity(intent)
                 }
             }
@@ -69,24 +69,24 @@ class DetailsJobFragment : Fragment() {
             jobModel = arguments?.getSerializable(Constants.BUNDLE_JOB_MODEL_KEY) as JobModel
             binding.apply {
                 Picasso.get().load(jobModel!!.company_logo).into(ivCompanyLogo)
-                tvCompanyName.text = jobModel!!.company
-                tvJobTitle.text = jobModel!!.title
-                tvJobType.text = jobModel!!.type
-                tvJobUrl.text = jobModel!!.url
-                tvCompanyUrl.text = jobModel!!.company_url
-                tvJobDescription.text = jobModel!!.description
+                tvCompanyName.text      = jobModel!!.company
+                tvJobTitle.text         = jobModel!!.title
+                tvJobType.text          = jobModel!!.type
+                tvJobUrl.text           = jobModel!!.url
+                tvCompanyUrl.text       = jobModel!!.company_url
+                tvJobDescription.text   = jobModel!!.description
 
                 // open job url.
                 tvJobUrl.setOnClickListener {
-                    val uri = Uri.parse(jobModel!!.url)
-                    val intent = Intent(Intent.ACTION_VIEW,uri)
+                    val uri     = Uri.parse(jobModel!!.url)
+                    val intent  = Intent(Intent.ACTION_VIEW,uri)
                     startActivity(intent)
                 }
 
                 // open company url for.
                 tvCompanyUrl.setOnClickListener {
-                    val uri = Uri.parse(jobModel!!.company_url)
-                    val intent = Intent(Intent.ACTION_VIEW,uri)
+                    val uri     = Uri.parse(jobModel!!.company_url)
+                    val intent  = Intent(Intent.ACTION_VIEW,uri)
                     startActivity(intent)
                 }
             }

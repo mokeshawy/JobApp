@@ -17,6 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding : ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
        binding = DataBindingUtil.setContentView(this , R.layout.activity_main)
@@ -27,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         val navController   : NavController = navHostFragment.navController
         findViewById<BottomNavigationView>(R.id.bottom_navigation).setupWithNavController(navController)
 
-        // work tge action bar for fragment page.
+        // work the action bar for fragment page.
         val appBarConfiguration = AppBarConfiguration(setOf(R.id.homeScreenFragment ,
             R.id.searchFragment ,
             R.id.favoriteFragment,

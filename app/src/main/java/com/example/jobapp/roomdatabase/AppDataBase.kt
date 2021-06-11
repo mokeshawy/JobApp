@@ -7,6 +7,6 @@ import com.example.jobapp.model.JobModel
 import com.example.jobapp.response.JobsResponse
 
 @Database(entities = [JobModel::class , FavoriteJobModel::class] , version = 2 , exportSchema = false)
-abstract class AppDataBase : RoomDatabase() {
-    abstract fun jobDao() : JobDao
+abstract class AppDataBase  : RoomDatabase() {
+    abstract fun jobDao()   : JobDao
 }

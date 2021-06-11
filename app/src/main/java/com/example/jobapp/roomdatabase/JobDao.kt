@@ -32,7 +32,7 @@ interface JobDao {
     // ================================================================ //
 
     // query favorite job model.
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addFavoriteJob( favoriteJobModel: FavoriteJobModel)
 
     @Query("SELECT * FROM FavoriteJobModel")

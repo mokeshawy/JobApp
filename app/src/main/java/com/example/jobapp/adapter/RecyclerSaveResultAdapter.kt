@@ -11,8 +11,6 @@ import com.squareup.picasso.Picasso
 class RecyclerSaveResultAdapter(private var mJobModel: List<JobModel> ,
                                 var onClickSaveResult: OnClickSaveResultAdpter) : RecyclerView.Adapter<RecyclerSaveResultAdapter.ViewHolder>() {
 
-    private var oldData = emptyList<JobModel>()
-
     class ViewHolder(var binding : JobsListItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         // initialize onClickUsersAdapter from interface
@@ -46,8 +44,4 @@ class RecyclerSaveResultAdapter(private var mJobModel: List<JobModel> ,
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = mJobModel.size
 
-    fun setData(newData: List<JobModel>){
-        oldData = newData
-        notifyDataSetChanged()
-    }
 }
