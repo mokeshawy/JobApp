@@ -28,6 +28,7 @@ class FavoriteFragment : Fragment() , OnClickFavoriteAdapter{
 
     lateinit var binding            : FragmentFavoriteBinding
     private val favoriteViewModel   : FavoriteViewModel by viewModels()
+    var favoriteAdapter = RecyclerFavoriteAdapter(arrayListOf(),this)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         // Inflate the layout for this fragment
         binding = FragmentFavoriteBinding.inflate(inflater)
@@ -41,12 +42,12 @@ class FavoriteFragment : Fragment() , OnClickFavoriteAdapter{
         binding.lifecycleOwner = this
         binding.favoriteVarViewModel = favoriteViewModel
 
+        binding.rvJobsList.adapter = favoriteAdapter
 
 
         // show data from favorite from database.
         favoriteViewModel.showDataFromDatabase(requireActivity()).observe(viewLifecycleOwner, Observer {
-            binding.rvJobsList.adapter = RecyclerFavoriteAdapter(it,this)
-
+             favoriteAdapter.update(it)
             // show recycler when found data and hide when not found.
             Constants.showRecycler(it,binding.rvJobsList,binding.tvFavoriteNotFound)
         })
@@ -57,7 +58,6 @@ class FavoriteFragment : Fragment() , OnClickFavoriteAdapter{
         favoriteJobModel: FavoriteJobModel,
         position: Int
     ) {
-
         // call check select on favorite button.
         favoriteViewModel.checkSelect(requireActivity(),
             favoriteJobModel.title,
@@ -67,8 +67,13 @@ class FavoriteFragment : Fragment() , OnClickFavoriteAdapter{
         viewHolder.binding.btnFavoriteJobs.setOnClickListener {
             // call function for delete job from favorite
             favoriteViewModel.deleteFavoriteData(requireActivity(),favoriteJobModel.title)
+            // when dun favorite item will remove from list.
+            favoriteViewModel.showDataFromDatabase(requireActivity()).observe(viewLifecycleOwner, Observer {
+                favoriteAdapter.update(it)
+                // show recycler when found data and hide when not found.
+                Constants.showRecycler(it,binding.rvJobsList,binding.tvFavoriteNotFound)
+            })
         }
-
         // go details job with favoriteJobModel object.
         viewHolder.itemView.setOnClickListener {
             var action = FavoriteFragmentDirections.actionFavoriteFragmentToFavoriteDetailsFragment(favoriteJobModel)

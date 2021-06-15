@@ -55,7 +55,7 @@
     <fragment
         android:id="@+id/favoriteDetailsFragment"
         android:name="com.example.jobapp.favoritedetailsfragment.FavoriteDetailsFragment"
-        android:label="fragment_favorite_details"
+        android:label="Details"
         tools:layout="@layout/fragment_favorite_details" >
         <argument
             android:name="favoriteJobModel"
